@@ -80,7 +80,7 @@ function [traj_hto, cost_opt_set] = SMTO(traj_q, T, funcJacob, dim, ...
                 traj_q_noise = traj_hto(:,:,m) + traj_noise;
             end
                                 
-            [cost_total,~, ~] = stomp_costfunc(traj_q_noise, dim, funcJacob,obstacles, radii, eps, bodySizes, cost_weights);
+            [cost_total,~, ~] = stomp_costfunc(traj_q_noise, dim, funcJacob, obstacles, radii, eps, bodySizes, cost_weights);
             noise_set(:,:, k) = noise';
             cost_set(k, 1) = cost_total;
             traj_sample_set(:,:,k) = traj_q_noise;
@@ -111,7 +111,12 @@ function [traj_hto, cost_opt_set] = SMTO(traj_q, T, funcJacob, dim, ...
            exp_cost_set_m  = exp_cost_set(ind, :);
            exp_cost_set_m_2d = repmat(exp_cost_set_m', [T*linkNum, 1]); 
            mean_traj_m = sum( exp_cost_set_m_2d .*  traj_sample_set_m_2d, 2) / sum( exp_cost_set_m );
-           traj_hto(:, :, m) =  reshape( mean_traj_m, [T, linkNum] );
+           traj_m =  reshape( mean_traj_m, [T, linkNum] );
+           
+           traj_m  = simpleCHOMP( traj_m, T, funcJacob,...
+                             dim, 4, obstacles, radii, eps, bodySizes, 0.15, 0.005, cost_weights );
+           
+           traj_hto(:, :, m) =  traj_m;
         end
                  
     end

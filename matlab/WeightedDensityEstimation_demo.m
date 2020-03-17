@@ -6,6 +6,8 @@
 close all;
 clear variables;
 
+addpath('DE');
+
 N = 1000;
 m = 10;
 
@@ -85,3 +87,5 @@ CostFunc = @CostTwoModes;
  axis([0 2 0 2])
  set(gca,'YTickLabel',[]);
  set(gca,'XTickLabel',[]);
+ 
+ rmpath('DE');

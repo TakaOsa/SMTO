@@ -2,6 +2,8 @@
 % you can play around by channgin the problem setting.
 % solutions are different for each run since the process is stochastic
 
+addpath('Path2D');
+
 % position of the start and goal points
 %p_start = [0,1.5];
 %p_goal = [2,1];
@@ -112,4 +114,4 @@ height = ones(T,1);
 set(gca,'xtick',[])
 set(gca,'ytick',[])
  
-
+rmpath('Path2D');
