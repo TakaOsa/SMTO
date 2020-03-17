@@ -46,7 +46,7 @@ task_chomp = zeros(T, D);
 
 
 stomp_cost_weights = [1.0, 0.1];
-iteNum = 4;
+iteNum = 2;
 seedNum = 400;
 freeAxis = [0,0,1];
 angle_pos =  pi/4;

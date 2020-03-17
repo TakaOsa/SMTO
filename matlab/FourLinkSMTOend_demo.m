@@ -37,9 +37,6 @@ bodySizes = [0.01, 0.15, 0.2,  0.15];
 
 traj_q = traj_c;
 
-% task_ini = zeros(T, D);
-% task_chomp = zeros(T, D);
-
 stomp_cost_weights = [1.0, 0.1];
 iteNum = 4;
 seedNum = 400;

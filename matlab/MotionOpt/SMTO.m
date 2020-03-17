@@ -126,9 +126,15 @@ function [traj_hto, cost_opt_set] = SMTO(traj_q, T, funcJacob, dim, ...
        [cost_total_m,~, ~] = stomp_costfunc(traj_hto(:,:,m), dim, funcJacob,obstacles, radii, eps, bodySizes, cost_weights); 
        cost_opt_set(m, 1) = cost_total_m;
        
-        smoothnessCost = trace( (traj_hto(:,:,m)' * K') * (K * traj_hto(:,:,m)));
-        fprintf('cost_total:%f, smoothnessCost;%f\n',cost_total_m, smoothnessCost);
+       if cost_total_m < 2.0
+           smoothnessCost = trace( (traj_hto(:,:,m)' * K') * (K * traj_hto(:,:,m)));
+           fprintf('cost_total:%f, smoothnessCost;%f\n',cost_total_m, smoothnessCost);
+       end
     end
+    
+    ind = (cost_opt_set(:, 1) < 2.0);
+    traj_hto = traj_hto(:,:,ind);
+    cost_opt_set = cost_opt_set(ind, :);
 
 end
 
